@@ -10,14 +10,14 @@ const router = express.Router();
 const routes: RouteParams[] = [
     {
         method: "DELETE",
-        path: "/:_id",
+        path: "/",
         returnData: false,
         successMessage: "User deleted successfully",
         callback: deleteUser
     },
     {
         method: "PUT",
-        path: '/:user_id/change-email',
+        path: '/change-email',
         returnData: false,
         successMessage: "Email changed successfully!",
         bodySchema: resetRequestSchema,
@@ -25,14 +25,14 @@ const routes: RouteParams[] = [
     },
     {
         method: "GET",
-        path: "/:_id",
+        path: "/",
         returnData: true,
         successMessage: "User found!",
         callback: getUserData
     },
     {
         method: "POST",
-        path: "/:user_id/profile-pic",
+        path: "/profile-pic",
         returnData: false,
         successMessage: "Profile picture changed successfully!",
         bodySchema: profilePicChangeSchema,
