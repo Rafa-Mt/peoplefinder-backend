@@ -3,7 +3,8 @@ import { IChat } from "../types/db";
 
 
 const chatSchema = new Schema<IChat>({
-    users: { type: [Schema.Types.ObjectId], ref: 'user', required: true }
+    users: { type: [Schema.Types.ObjectId], ref: 'user', required: true },
+    last_message: { type: Schema.Types.ObjectId, ref: 'message', default: null }
 })
 
-export const User = model<IChat>('chat', chatSchema)
+export const Chat = model<IChat>('chat', chatSchema)

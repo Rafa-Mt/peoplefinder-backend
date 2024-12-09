@@ -54,12 +54,16 @@
 ### Properties:
   - **__id_**: `ObjectId`  _(mongo unique identifier)_
   - **_Users_**: `ObjectId[]` _(references 'user')_
+  - **_Last Message_**: `ObjectId` _(references 'message')_
 
 ### Example:
 ```json
 {
-    "_id": "14827364987126",
-    "users": ["51823ba3421324234", "492837465928374658"]
+    "_id": "148273649871262343242343",
+    "users": [
+        "51823ba34213248236856784", "492837465976539028374658"
+    ],
+    "last_message": "9523490769823ab123473423"
 }
 ```
 
@@ -75,7 +79,7 @@
 
 ```json
 {
-    "_id": "373264872364acbe2347982364",
+    "_id": "373264872364acbe23479824",
     "user": "51823ba3421324234",
     "target": "492837465928374658"
 }

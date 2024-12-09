@@ -1,15 +1,14 @@
 import { Router } from "express";
 import { RouteParams } from "../types/api";
 import { buildRouter } from "../services/router";
-import { chatSchema, messageSchema } from "../body_schemas/chats";
-import { sendMessage } from "../services/mailer";
-import { createChat, getChats, getMessages } from "../controllers/messages";
+import { chatSchema, messageSchema } from "../body_schemas/messages";
+import { createChat, getChats, getMessages, sendMessage } from "../controllers/messages";
 
 const router = Router();
 
 const routes: RouteParams[] = [
     {
-        path: "/messages",
+        path: "/message",
         method: "POST",
         bodySchema: messageSchema,
         callback: sendMessage,
@@ -20,6 +19,7 @@ const routes: RouteParams[] = [
         method: "POST",
         bodySchema: chatSchema,
         callback: createChat,
+        returnData: true,
         successMessage: 'Chat created successfully!'
     },
     {
@@ -30,7 +30,7 @@ const routes: RouteParams[] = [
         returnData: true
     },
     {
-        path: "/chats/:chat_id",
+        path: "/chat/:chat_id",
         method: "GET",
         callback: getMessages,
         successMessage: "Found Messages!",

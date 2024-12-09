@@ -16,9 +16,14 @@ export interface IPasswordResetToken extends Document {
 
 export interface IChat extends Document {
     users: Types.ObjectId[];
+    last_message: Types.ObjectId
 }
 
 export interface IMessage extends Document {
     chat: Types.ObjectId;
-    content: string
+    content: string;
+    type: "text" | "image";
+    author: Types.ObjectId;
+    datetime_sent: Date
+
 }
