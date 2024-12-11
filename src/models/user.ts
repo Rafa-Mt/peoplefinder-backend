@@ -7,6 +7,14 @@ export const userSchema = new Schema<IUser>(
         email: { type: String, required: true, unique: true },
         password: { type: String, required: true },
         deleted: { type: Boolean, required: true },
+        info: { 
+            bio: { type: String, default: "" },
+            full_name: { type: String },
+            gender: { type: String },
+            birthdate: { type: Date },
+            country: { type: Schema.Types.ObjectId, ref: "country" },
+            photos: { type: [String], default: [] }
+        }
     },
     {
         statics: {

@@ -6,6 +6,20 @@ export interface IUser extends Document {
     email: string;
     password: string;
     deleted: boolean;
+    info: IUserInfo
+}
+
+interface IUserInfo {
+    bio: string;
+    full_name: string;
+    gender: "male" | "female" | "other";
+    birthdate: Date;
+    country: Types.ObjectId; // references 'country'
+    photos: string[]
+}
+
+export interface ICountry extends Document {
+    name: string
 }
 
 export interface IPasswordResetToken extends Document {
@@ -15,15 +29,15 @@ export interface IPasswordResetToken extends Document {
 }
 
 export interface IChat extends Document {
-    users: Types.ObjectId[];
-    last_message: Types.ObjectId
+    users: Types.ObjectId[]; // references 'user'
+    last_message: Types.ObjectId // references 'message'
 }
 
 export interface IMessage extends Document {
-    chat: Types.ObjectId;
+    chat: Types.ObjectId; // references 'chat'
+    author: Types.ObjectId; // references 'user'
     content: string;
     type: "text" | "image";
-    author: Types.ObjectId;
     datetime_sent: Date
 
 }

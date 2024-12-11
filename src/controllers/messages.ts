@@ -40,7 +40,7 @@ export const getChats = async ({ token }: RouteCallbackParams) => {
         users: _id
     })
     // .select(["_id", "users", "last_message"]) 
-    .populate({ path: "users", select: "-_id username", match: {
+    .populate({ path: "users", select: "username photos", match: {
         _id: { $ne: _id }
     }})
     .populate({ 
