@@ -368,12 +368,59 @@ const response = await fetch(`${url}/user/${targetId}`, {
         "full_name": "Atlina garcia",
         "bio": "insert bio",
         "gender": "male",
-        "birthdate": "Date(18-08-2004)",
-        "country": "Venezuela",
-        "Photos": [
+        "birthdate": "2004-08-18T00:00:00",
+        "country": {
+            "_id": "9123749127b9187239826234",
+            "name": "Venezuela"
+        },
+        "photos": [
             "https://is.zobj.net/image-server/v1/images?r=gYzSI8o-5BkyuE3rfiUbjlO7pVEZ7mXOSR8_nAL7nqyBa8TDqTG78W-JAeNfF1zbGX8uDf-d6oxuy9AUd1atyEOp7wGz5CAx2eHa7lYmukuwxUnHoYxazo3MAayebFTB12tPi85-9L3iOwZ5qX2qYn9hPJaWodjPNT2CjvBSCXt8mETRR9kLLZL7O3GZbOjjkKtoIcnw37rWAaicgyAMkdaex4kgrjSctoeXlA"
         ]
     }
 }
 ```
  
+## Update info
+
+```
+(PUT) /api/user/
+```
+
+## Body
+  - **_Full Name_**: `String` _(limits to 96 characters)_
+  - **_Bio_**: `String` _(limits to 512 characters)_
+  - **_Gender_**: `String` _(limits to 'male', 'female', and 'other')_
+  - **_Birthdate_**: `String` _(`Date` formmated as `String`)_
+  - **_Country_**: `ObjectId` _(references 'country')_
+  - **_Photos_**: `String[]` _(array of image url(s))_
+
+## Example Request
+
+```ts
+const birthdate = new Date('2004-08-18T00:00:00');
+const response = await fetch(`${url}/user`, {
+    method: "PUT",
+    headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "Application/json"
+    },
+    body: JSON.stringify({
+        full_name: "Atlina Eduarda Garcia Velasques",
+        bio: "I'm just a girl",
+        gender: "female",
+        birthdate: birthdate.toString(),
+        country: "9123749127b9187239826234" ,
+        photos: [
+            "https://is.zobj.net/image-server/v1/images?r=gYzSI8o-5BkyuE3rfiUbjlO7pVEZ7mXOSR8_nAL7nqyBa8TDqTG78W-JAeNfF1zbGX8uDf-d6oxuy9AUd1atyEOp7wGz5CAx2eHa7lYmukuwxUnHoYxazo3MAayebFTB12tPi85-9L3iOwZ5qX2qYn9hPJaWodjPNT2CjvBSCXt8mETRR9kLLZL7O3GZbOjjkKtoIcnw37rWAaicgyAMkdaex4kgrjSctoeXlA"
+        ]
+    })
+});
+```
+
+## Example Response
+
+```json
+{
+    "success": "User info updated successfully!"
+}
+```

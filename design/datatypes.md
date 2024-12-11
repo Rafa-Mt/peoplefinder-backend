@@ -34,7 +34,6 @@
     }
 }
 ```
-_Maybe this is not needed_
 ## Country
 
 ### Properties
