@@ -5,4 +5,4 @@ const countrySchema = new Schema<ICountry>({
     name: { type: String, required: true }
 })
 
-export const Country = model<IUser>('country', countrySchema)
+export const Country = model<IUser>('countries', countrySchema)

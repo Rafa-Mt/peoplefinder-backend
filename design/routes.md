@@ -28,7 +28,7 @@ const response = await fetch(`${url}/auth/login/`, {
 });
 ```
 
-### Example Response
+### Example Response (User without user info)
 
 ```json
 {
@@ -40,6 +40,32 @@ const response = await fetch(`${url}/auth/login/`, {
             "email": "elatla@tlas.online"
         },
         "token": "..."
+    }
+}
+```
+
+### Example Response (User with user info)
+
+```json
+{
+    "success": "Logged in succesfully!",
+    "data": {
+        "user": {
+            "_id": "6754c8fcec7ab896088b710b",
+            "username": "el_atla",
+            "email": "elatla@tlas.online",
+            "info": {
+                "bio": "Estudiante de quimica, creyente en el horóscopo",
+                "full_name": "Atlina Eduarda García Velásquez",
+                "gender": "female",
+                "birthdate": "2004-08-18T00:00:00.000Z",
+                "country": "6759e641c14dec93250d8190",
+                "photos": [
+                    "https://vaippmtqyjpyxanjifki.supabase.co/storage/v1/object/public/peoplefinder-images/public/photo_2024-12-11_16-44-49.jpg"
+                ]
+            }
+        },
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzU0YzhmY2VjN2FiODk2MDg4YjcxMGIiLCJ1c2VybmFtZSI6ImVsX2F0bGEiLCJlbWFpbCI6ImVsYXRsYUB0bGFzLm9ubGluZSIsImlhdCI6MTczMzk1MjE1NiwiZXhwIjoxNzM0Mzg0MTU2fQ.P-GJGgTRkcIVS3dkPA9iRfAESkEsynRYZeGGVyKHdGw"
     }
 }
 ```
@@ -138,7 +164,7 @@ _None_
 ### Example Request
 
 ```ts
-const response = await fetch(`${url}/auth/register`, {
+const response = await fetch(`${url}/messages/chats`, {
     headers: {
         "Content-Type": "Application/json",
         "Authorization": `Bearer ${token}`
@@ -422,5 +448,59 @@ const response = await fetch(`${url}/user`, {
 ```json
 {
     "success": "User info updated successfully!"
+}
+```
+
+## Get Countries
+
+```
+(Get) /api/misc/countries
+```
+
+### Body
+
+_None_
+
+### Params
+
+_None_
+
+### Example Request
+```ts
+const response = await fetch(`${url}/misc/countries`, {
+    headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "Application/json"
+    },
+});
+```
+
+### Example Response
+
+```json
+{
+    "success": "Found Countries!",
+    "data": [
+        {
+            "_id": "6759e641c14dec93250d8190",
+            "name": "Venezuela"
+        },
+        {
+            "_id": "6759e641c14dec93250d8191",
+            "name": "Colombia"
+        },
+        {
+            "_id": "6759e641c14dec93250d8192",
+            "name": "Perú"
+        },
+        {
+            "_id": "6759e641c14dec93250d8193",
+            "name": "Argentina"
+        },
+        {
+            "_id": "6759e641c14dec93250d8194",
+            "name": "Chile"
+        }
+    ]
 }
 ```

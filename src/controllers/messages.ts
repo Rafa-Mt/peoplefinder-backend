@@ -46,10 +46,8 @@ export const getChats = async ({ token }: RouteCallbackParams) => {
     .populate({ 
         path: "last_message", 
         select: "datetime_sent content author -_id", 
-        populate: { path: 'author', select: 'username -_id' } 
+        populate: { path: 'author', select: 'username -_id info.photos' } 
     })
-
-
 
     return foundChats;
 }
@@ -68,8 +66,9 @@ export const getMessages = async ({ token, params }: RouteCallbackParams) => {
     const { chat_id } = params;
     const foundMessages = Message.find({ chat: chat_id })
     .select(['_id', 'type', 'datetime_sent', 'content', 'chat', 'author'])
-    socketServer.on('connect', (socket) => {
-        socket.join(chat_id)
-    })
+    .sort({_id: 1})
+    // socketServer.on('connect', (socket) => {
+    //     socket.join(chat_id)
+    // })
     return foundMessages;
 }

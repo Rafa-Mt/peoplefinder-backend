@@ -12,7 +12,7 @@ export interface IUser extends Document {
 interface IUserInfo {
     bio: string;
     full_name: string;
-    gender: "male" | "female" | "other";
+    gender: string;
     birthdate: Date;
     country: Types.ObjectId; // references 'country'
     photos: string[]
