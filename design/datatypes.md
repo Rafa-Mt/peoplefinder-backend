@@ -9,7 +9,7 @@
 - **_Deleted_**: `Boolean`
 - **_Info_**: `Record`
   - **_Biography_**: `String` _(limited to 512 characters)_
-  - **_Gender_**: `String` _(limited to 'male', 'female' and 'prefer not to say')_
+  - **_Gender_**: `String` _(limited to 'male', 'female' and 'other')_
   - **_Birthdate_**: `Date`
   - **_Country_**: `ObjectID` _(references 'country')_ 
   - **_Photos_**: `String[]` _(url to firebase image)_
@@ -23,7 +23,8 @@
     "password": "12345678",
     "deleted": false,
     "info": {
-        "bio": "string",
+        "bio": "insert bio",
+        "full_name": "Atlina garcia",
         "gender": "male",
         "birthdate": "Date(18-08-2004)",
         "country": "Venezuela",
@@ -33,7 +34,7 @@
     }
 }
 ```
-
+_Maybe this is not needed_
 ## Country
 
 ### Properties
@@ -61,7 +62,8 @@
 {
     "_id": "148273649871262343242343",
     "users": [
-        "51823ba34213248236856784", "492837465976539028374658"
+        "51823ba34213248236856784", 
+        "492837465976539028374658"
     ],
     "last_message": "9523490769823ab123473423"
 }

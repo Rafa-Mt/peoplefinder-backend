@@ -256,11 +256,10 @@ const response = await fetch(`${url}/messages/chat/${message_id}`, {
     ]
 }
 ```
-<!--  
-## Get User
+## Get Match Feed
 
 ```
-(GET) /api/user/
+(GET) /api/match/get/:page
 ```
 
 ### Body
@@ -269,12 +268,89 @@ _None_
 
 ### Params
 
+**_Page_**: `Number` 
+
+### Example Request
+```ts
+const response = await fetch(`${url}/match/get/${page}`, {
+    headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "Application/json"
+    },
+});
+```
+
+### Example Response
+```json
+{
+    "success": "Found Users!",
+    "data": {
+        "people": [
+            {...},
+            {...},
+            {...}
+        ],
+        "next": "/api/match/get/2"
+    }
+}
+```
+
+
+## Like User
+
+```
+(POST) /api/match/like
+```
+
+### Body
+
+**_Target_**: `ObjectId` _(references 'user')_
+
+### Params
+
 _None_
 
 ### Example Request
 
 ```ts
-const response = await fetch(`${url}/user/`, {
+const response = await fetch(`${url}/match/like`, {
+    method: "POST",
+    headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "Application/json"
+    },
+    body: JSON.stringify({
+        target: "51823ba3421324234"
+    })
+});
+```
+
+### Example Response
+
+```json
+{
+    "success": "Like sent successfully!"
+}
+```
+
+## Get User Info
+
+```
+(GET) /api/user/:target
+```
+
+### Body
+
+_None_
+
+### Params
+
+**_Target_**: `ObjectId` _(references 'user', leave null for user's own data)_
+
+### Example Request
+
+```ts
+const response = await fetch(`${url}/user/${targetId}`, {
     headers: {
         "Authorization": `Bearer ${token}`,
         "Content-Type": "Application/json"
@@ -286,7 +362,18 @@ const response = await fetch(`${url}/user/`, {
 
 ```json
 {
-
+    "_id": "51823ba3421324234",
+    "username": "el_atla",
+    "info": {
+        "full_name": "Atlina garcia",
+        "bio": "insert bio",
+        "gender": "male",
+        "birthdate": "Date(18-08-2004)",
+        "country": "Venezuela",
+        "Photos": [
+            "https://is.zobj.net/image-server/v1/images?r=gYzSI8o-5BkyuE3rfiUbjlO7pVEZ7mXOSR8_nAL7nqyBa8TDqTG78W-JAeNfF1zbGX8uDf-d6oxuy9AUd1atyEOp7wGz5CAx2eHa7lYmukuwxUnHoYxazo3MAayebFTB12tPi85-9L3iOwZ5qX2qYn9hPJaWodjPNT2CjvBSCXt8mETRR9kLLZL7O3GZbOjjkKtoIcnw37rWAaicgyAMkdaex4kgrjSctoeXlA"
+        ]
+    }
 }
 ```
-  -->
+ 
