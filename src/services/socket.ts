@@ -9,9 +9,10 @@ export const initSocket = (server: Server<DefaultEventsMap, DefaultEventsMap, De
             socket.to(room).emit('disconnected', `${username} Disconnected`)
         })
 
-        socket.on('join', (room: string) => {
+        socket.on('join', (room: string, username: string, callback: (arg: string) => void) => {
             socket.join(room)
-            socket.emit('connected')
+            socket.emit(`${username} connected to room ${room}`)
+            callback('Successfully connected')
         })
 
         socket.on('join-self', (user_id) => {

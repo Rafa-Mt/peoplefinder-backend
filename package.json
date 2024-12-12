@@ -4,7 +4,8 @@
   "description": "A people finder mobile app",
   "main": "./src/index.ts",
   "scripts": {
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "start": "ts-node -r tsconfig-paths/register src/main.ts"
   },
   "keywords": [],
   "author": "",
