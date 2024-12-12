@@ -26,7 +26,7 @@
         "bio": "insert bio",
         "full_name": "Atlina garcia",
         "gender": "male",
-        "birthdate": "Date(18-08-2004)",
+        "birthdate": "2004-08-18T00:00:00.000Z",
         "country": "761346918265ba293874293",
         "photos": [
             "https://is.zobj.net/image-server/v1/images?r=gYzSI8o-5BkyuE3rfiUbjlO7pVEZ7mXOSR8_nAL7nqyBa8TDqTG78W-JAeNfF1zbGX8uDf-d6oxuy9AUd1atyEOp7wGz5CAx2eHa7lYmukuwxUnHoYxazo3MAayebFTB12tPi85-9L3iOwZ5qX2qYn9hPJaWodjPNT2CjvBSCXt8mETRR9kLLZL7O3GZbOjjkKtoIcnw37rWAaicgyAMkdaex4kgrjSctoeXlA"

@@ -97,6 +97,7 @@ const response = await fetch(`${url}/auth/register`, {
     body: JSON.stringify({
         username: "el_atla",
         password: "12345678",
+        email: "el_atla@decoupled.dev"
     })
 });
 ```
