@@ -37,10 +37,11 @@ _When a message is sent to user_
   - **_Type_**: `String` _('text' or 'image')_
   - **_Author_**: `String` _(Author's username)_
   - **_Chat_**: `ObjectId` _(References 'chat')_
+  - **_Datetime_**: `String` _(`Datetime` as `String`)_
 
 ### Example usage
 ```ts
-socketClient.on('message', (content, type, author, chat) => {
+socketClient.on('message', (content, type, author, chat, datetime) => {
     chats[chat].messages.push(content)
     toast(`${type} message recieved from ${chats[chat].user}`)
     // "text message recieved from {user}" 

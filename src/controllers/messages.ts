@@ -31,8 +31,8 @@ export const sendMessage = async ({ token, body }: RouteCallbackParams) => {
 
     const target = chat.users.filter((u) => u !== _id).pop()
 
-    socketServer.to(chat_id).emit('message', content, type, username, chat_id)
-    socketServer.to(`self-${target}`).emit('message', content, type, username, chat_id)
+    socketServer.to(chat_id).emit('message', content, type, username, chat_id, datetime_sent)
+    socketServer.to(`self-${target}`).emit('message', content, type, username, chat_id, datetime_sent)
     return message
 } 
 
@@ -48,7 +48,7 @@ export const getChats = async ({ token }: RouteCallbackParams) => {
     }})
     .populate({ 
         path: "last_message", 
-        select: "datetime_sent content author -_id", 
+        select: "datetime_sent content author type -_id", 
         populate: { path: 'author', select: 'username -_id' } 
     })
 
@@ -64,6 +64,7 @@ export const getChats = async ({ token }: RouteCallbackParams) => {
             content: (chat.last_message as unknown as IMessage).content,
             datetime_sent: (chat.last_message as unknown as IMessage).datetime_sent,
             author: (chat.last_message as any).author.username,
+            type: (chat.last_message as unknown as IMessage).type,
         } : null
     }));
 }
