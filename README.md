@@ -1,2 +1,2 @@
 # peoplefinder-backend
- A people finder mobile app
+ A people finder mobile app.
