@@ -15,8 +15,9 @@ export const initSocket = (server: Server<DefaultEventsMap, DefaultEventsMap, De
             callback('Successfully connected')
         })
 
-        socket.on('join-self', (user_id) => {
+        socket.on('join-self', (user_id, callback: (arg: string) => void) => {
             socket.join(`self-${user_id}`)
+            callback('Successfully connected to notifications socket')
         })
     });
 }

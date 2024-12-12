@@ -12,6 +12,10 @@ export default router;
 
 dotenv();
 
+router.post('/test', (req, res) => {
+    res.status(200).send(req.body)
+})
+
 router.post('/login', async (req, res) => {
     try {
         const body = loginSchema.safeParse(req.body);
