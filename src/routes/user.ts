@@ -25,6 +25,13 @@ const routes: RouteParams[] = [
     },
     {
         method: "GET",
+        path: "/:user_id",
+        returnData: true,
+        successMessage: "User found!",
+        callback: getUserData
+    },
+    {
+        method: "GET",
         path: "/",
         returnData: true,
         successMessage: "User found!",

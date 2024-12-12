@@ -1,9 +1,10 @@
 import { RouteCallbackParams } from "../types/api";
 import { socketServer } from "../main";
-import { IUser } from "../types/db";
+import { IMessage, IUser } from "../types/db";
 import { Chat } from "../models/chat";
 import { Message } from "../models/message";
 import { Aggregate, Types } from "mongoose";
+import { AnyMxRecord } from "node:dns";
 
 export const sendMessage = async ({ token, body }: RouteCallbackParams) => {
     const { _id, username } = token as IUser;
@@ -28,7 +29,10 @@ export const sendMessage = async ({ token, body }: RouteCallbackParams) => {
     chat.last_message = message._id as Types.ObjectId
     await chat.save()
 
+    const target = chat.users.filter((u) => u !== _id).pop()
+
     socketServer.to(chat_id).emit('message', content, username, chat_id)
+    socketServer.to(`self-${target}`).emit('message', content, username, chat_id)
     return message
 } 
 
@@ -40,16 +44,29 @@ export const getChats = async ({ token }: RouteCallbackParams) => {
         users: _id
     })
     // .select(["_id", "users", "last_message"]) 
-    .populate({ path: "users", select: "username photos", match: {
+    .populate({ path: "users", select: "username info.photos", match: {
         _id: { $ne: _id }
     }})
     .populate({ 
         path: "last_message", 
         select: "datetime_sent content author -_id", 
-        populate: { path: 'author', select: 'username -_id info.photos' } 
+        populate: { path: 'author', select: 'username -_id' } 
     })
 
-    return foundChats;
+    // console.log(foundChats)
+
+    // God, forgive me for what i'm doing here.
+    return foundChats.map((chat) => ({
+        _id: chat._id,
+        user_id: chat.users[0]._id,
+        user: (chat.users[0] as unknown as IUser).username,
+        photo: (chat.users[0] as unknown as IUser).info.photos[0],
+        last_message: chat.last_message ? {
+            content: (chat.last_message as unknown as IMessage).content,
+            datetime_sent: (chat.last_message as unknown as IMessage).datetime_sent,
+            author: (chat.last_message as any).author.username,
+        } : null
+    }));
 }
 
 export const createChat = async ({ token, body }: RouteCallbackParams) => {

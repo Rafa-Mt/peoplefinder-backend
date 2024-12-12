@@ -17,8 +17,10 @@ export const createRoute = (router: Router, routeBuilder: RouteParams) => {
             const params = req.params;
             const query = req.query;
             const token = (req as CustomRequest).token
-            if (reqBody && !reqBody.success)
+            if (reqBody && !reqBody.success) {
+                console.log(req.body)   
                 throw new FormatError(JSON.stringify(reqBody.error.flatten()));
+            }
             const requestedData = await callback({ body: reqBody ? reqBody.data : null, params, query, token: token ?? null });
 
             const response: SuccessResponse = {

@@ -17,9 +17,11 @@ export const changeUserEmail = async ({ token, body }: RouteCallbackParams) => {
     await foundUser.save();
 }
 
-export const getUserData = async ({ token }: RouteCallbackParams) => {
+export const getUserData = async ({ token, params }: RouteCallbackParams) => {
     const { _id } = token as IUser;
-    const user = await User.findById(_id)
+    const { user_id } = params;
+    const idToSearch = user_id ?? _id
+    const user = await User.findById(idToSearch)
     .select('username email info')
     return user
 }

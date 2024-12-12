@@ -24,12 +24,13 @@ export const sendLike = async ({ token, body }: RouteCallbackParams) => {
     await like.save()
 
     const otherSideLike = await Like.findOne({ target: _id, user: target })
-    if (otherSideLike) {
+    const directChatProbability = Math.random() * 10;
+
+    if (directChatProbability <= 7 || otherSideLike) {
         socketServer.to(`self-${_id as string}`).emit('match', targetUser.username)
         socketServer.to(`self-${target}`).emit('match', username)
         await createChat({ token, body: { target } })
     } 
-
 }
 
 export const getPeople = async ({ token, params }: RouteCallbackParams) => {
