@@ -181,20 +181,25 @@ const response = await fetch(`${url}/messages/chats`, {
     "data": [
         {
             "_id": "67561f39a2fb58994b566dee",
-            "users": [{ // This array excludes user's self username
-                "username": "el_dolar" 
-            }],
-            "__v": 0,
+            "user_id": "67560c703f1af4b512279772",
+            "user": "chantyuwu",
+            "photo": "/public/el_dolar-1734016293288.jpg",
             "last_message": {
-                "datetime_sent": "2024-12-08T23:06:33.117Z",
-                "content": "E",
-                "author": {
-                    "username": "el_atla"
-                }
+                "content": "Welcome!",
+                "datetime_sent": "2024-12-12T00:16:50.716Z",
+                "author": "el_atla"
             }
+        },
+        {
+            "_id": "675afddec74fea6958ae5e24",
+            "user_id": "675a331e098fce11ff954135",
+            "user": "atlas",
+            "photo": "/public/atlas-1734013616323.jpg",
+            "last_message": null
         }
     ]
 }
+
 ```
 
 ## Send Message
