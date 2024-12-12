@@ -6,7 +6,7 @@ import { Message } from "../models/message";
 import { Aggregate, Types } from "mongoose";
 
 export const sendMessage = async ({ token, body }: RouteCallbackParams) => {
-    const { _id } = token as IUser;
+    const { _id, username } = token as IUser;
     const { content, chat: chat_id, datetime_sent: unformmated, type } = body
     
     const chat = await Chat.findById(chat_id)
@@ -28,7 +28,7 @@ export const sendMessage = async ({ token, body }: RouteCallbackParams) => {
     chat.last_message = message._id as Types.ObjectId
     await chat.save()
 
-    socketServer.to(chat_id).emit('message', content, chat)
+    socketServer.to(chat_id).emit('message', content, username, chat_id)
     return message
 } 
 

@@ -22,6 +22,11 @@ export interface ICountry extends Document {
     name: string
 }
 
+export interface ILike extends Document {
+    user: Types.ObjectId
+    target: Types.ObjectId
+}
+
 export interface IPasswordResetToken extends Document {
     username: string;
     token: string;
