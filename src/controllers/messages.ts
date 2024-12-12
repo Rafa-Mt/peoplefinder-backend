@@ -31,14 +31,13 @@ export const sendMessage = async ({ token, body }: RouteCallbackParams) => {
 
     const target = chat.users.filter((u) => u !== _id).pop()
 
-    socketServer.to(chat_id).emit('message', content, username, chat_id)
-    socketServer.to(`self-${target}`).emit('message', content, username, chat_id)
+    socketServer.to(chat_id).emit('message', content, type, username, chat_id)
+    socketServer.to(`self-${target}`).emit('message', content, type, username, chat_id)
     return message
 } 
 
 export const getChats = async ({ token }: RouteCallbackParams) => {
 
-    // TODO: Add photos
     const { _id } = token as IUser;
     const foundChats = await Chat.find({
         users: _id
