@@ -3,16 +3,33 @@ import { Like } from "../models/like";
 import { User } from "../models/user";
 import { RouteCallbackParams } from "../types/api";
 import { IUser } from "../types/db";
+import { socketServer } from "../main";
+import { createChat } from "./messages";
 
 export const sendLike = async ({ token, body }: RouteCallbackParams) => {
-    const { _id } = token as IUser;
+    const { _id, username } = token as IUser;
     const { target } = body
+
+    const targetUser = await User.findOne({_id: target})
+    if (!targetUser)
+        throw new Error('User not found')
+
+    const likeAlreadyExist = await Like.findOne({ user: _id, target })
+    if (likeAlreadyExist)
+        throw new Error('Already liked this person')
 
     const like = new Like()
     like.user = _id as Types.ObjectId;
     like.target = target
     await like.save()
-    
+
+    const otherSideLike = await Like.findOne({ target: _id, user: target })
+    if (otherSideLike) {
+        socketServer.to(`self-${_id as string}`).emit('match', targetUser.username)
+        socketServer.to(`self-${target}`).emit('match', username)
+        await createChat({ token, body: { target } })
+    } 
+
 }
 
 export const getPeople = async ({ token, params }: RouteCallbackParams) => {
@@ -32,6 +49,7 @@ export const getPeople = async ({ token, params }: RouteCallbackParams) => {
         name: person.username,
         imageUrl: person.info.photos[0]
     }))
+
 
     return {
         people: formmatedPeople, 
